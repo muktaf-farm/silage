@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Karya Muktaf | Wedding & Cafe Videography in Malaysia</title>
+<meta name="description" content="Karya Muktaf makes wedding films and cafe promo videos in Malaysia. Packages from RM450. Message us on WhatsApp to book.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2F4F6; --card:#FFFFFF; --ink:#101B2D; --muted:#4F5B6B;
+  --line:#D5DAE0; --gold:#E3A02F; --gold-ink:#101B2D; --frame:#101B2D; --frame-text:#F2F4F6;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0C1422; --card:#142036; --ink:#EEF1F5; --muted:#A3AEBD;
+    --line:#26354F; --gold:#EDB04A; --gold-ink:#101B2D; --frame:#050A14; --frame-text:#EEF1F5;
+  }
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font:400 1.05rem/1.6 "DM Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Instrument Serif",Georgia,serif;font-weight:400;line-height:1.08}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 1.25rem}
+section{padding:4.5rem 0}
+h2{font-size:clamp(2rem,5vw,3rem);margin-bottom:1rem}
+.lead{color:var(--muted);max-width:56ch}
+.btn{display:inline-block;background:var(--gold);color:var(--gold-ink);font-weight:700;text-decoration:none;
+  padding:.9rem 1.5rem;border-radius:999px;border:2px solid var(--gold)}
+.btn:hover{filter:brightness(1.06)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+a:focus-visible,.btn:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+header{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 0}
+.logo{font-family:"Instrument Serif",Georgia,serif;font-size:1.5rem;text-decoration:none}
+nav a{margin-left:1.2rem;text-decoration:none;color:var(--muted);font-size:.95rem}
+nav a:hover{color:var(--ink)}
+@media(max-width:600px){nav a.hide{display:none}}
+
+/* hero: a letterboxed film frame */
+.hero{padding:2rem 0 4rem}
+.hero h1{font-size:clamp(2.8rem,9vw,5.8rem);max-width:13ch;margin:1.2rem 0}
+.hero p{font-size:1.15rem;color:var(--muted);max-width:46ch;margin-bottom:1.6rem}
+.actions{display:flex;gap:.8rem;flex-wrap:wrap}
+.frame{margin-top:3rem;background:var(--frame);color:var(--frame-text);border-radius:10px;
+  aspect-ratio:2.39/1;display:grid;place-items:center;text-align:center;padding:1rem;position:relative;overflow:hidden}
+.frame span{font-family:"Instrument Serif",Georgia,serif;font-size:clamp(1.1rem,3.4vw,1.9rem);opacity:.9}
+.frame small{display:block;font-size:.85rem;opacity:.6;margin-top:.3rem;font-family:"DM Sans",sans-serif}
+.frame::before,.frame::after{content:"";position:absolute;top:0;bottom:0;width:10px;
+  background:repeating-linear-gradient(var(--paper) 0 14px,transparent 14px 30px)}
+.frame::before{left:0;opacity:.18}.frame::after{right:0;opacity:.18}
+
+/* services */
+.two{display:grid;gap:1.25rem;grid-template-columns:1fr 1fr;margin-top:2rem}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.8rem}
+.panel h3{font-size:1.9rem;margin-bottom:.5rem}
+.panel ul{margin:1rem 0 0;padding-left:1.1rem;color:var(--muted)}
+.price{margin-top:2.2rem;display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap}
+.price strong{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(2.4rem,7vw,4rem)}
+.note{color:var(--muted);font-size:.95rem;margin-top:.5rem;max-width:56ch}
+
+/* portfolio */
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(3,1fr);margin-top:2rem}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.tile{aspect-ratio:9/12;border:1.5px dashed var(--line);border-radius:12px;display:grid;place-items:center;
+  text-align:center;padding:1rem;color:var(--muted);font-size:.95rem}
+
+/* process: a real sequence */
+ol{list-style:none;padding:0;margin-top:2rem;display:grid;gap:1.2rem;max-width:640px}
+ol li{display:grid;grid-template-columns:2.6rem 1fr;gap:1rem;align-items:start;padding-bottom:1.2rem;border-bottom:1px solid var(--line)}
+ol b{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:2.2rem;line-height:1;color:var(--gold)}
+ol strong{display:block;margin-bottom:.15rem}
+ol span{color:var(--muted)}
+
+/* contact */
+.contact{background:var(--frame);color:var(--frame-text);border-radius:18px;padding:clamp(2rem,6vw,4rem);text-align:center}
+.contact h2{max-width:16ch;margin:0 auto 1rem}
+.contact p{opacity:.8;margin:0 auto 1.6rem;max-width:44ch}
+footer{padding:2.5rem 0 3rem;color:var(--muted);font-size:.9rem;text-align:center}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="#top">Karya Muktaf</a>
+    <nav>
+      <a href="#services" class="hide">Services</a>
+      <a href="#work" class="hide">Our work</a>
+      <a href="#how">How it works</a>
+      <a href="#book">Book</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <h1>We film the day, so you can live it.</h1>
+      <p>Wedding films and cafe videos, made in Malaysia. Friendly to work with, easy to book, and priced from RM450.</p>
+      <div class="actions">
+        <a class="btn" href="https://wa.me/601164649300?text=Hi%20Karya%20Muktaf%2C%20I%27d%20like%20to%20ask%20about%20a%20video." target="_blank" rel="noopener">Message us on WhatsApp</a>
+        <a class="btn ghost" href="#services">See services</a>
+      </div>
+      <!-- Replace this block with your showreel: <video controls poster="poster.jpg"><source src="showreel.mp4"></video> -->
+      <div class="frame"><div><span>Showreel coming soon</span><small>Your best 30 seconds goes here</small></div></div>
+    </div>
+
+    <section id="services">
+      <h2>Two things we do well</h2>
+      <p class="lead">Pick the one that fits, or message us if you are not sure. We will help you choose.</p>
+      <div class="two">
+        <div class="panel">
+          <h3>Wedding films</h3>
+          <p>A film you will want to rewatch every anniversary.</p>
+          <ul><li>Highlight film of the day</li><li>Full ceremony and reception coverage</li><li>Choose the hours that suit you</li></ul>
+        </div>
+        <div class="panel">
+          <h3>Cafe marketing</h3>
+          <p>Videos that make people want to visit your cafe.</p>
+          <ul><li>Reels and short promo videos</li><li>Menu, drinks, and atmosphere shots</li><li>One shoot, several videos</li></ul>
+        </div>
+      </div>
+      <div class="price"><span>Packages from</span><strong>RM450 to RM1,500</strong></div>
+      <p class="note">The price depends on the date, location, hours of coverage, and number of videos. Message us the details and we will send a clear quote.</p>
+    </section>
+
+    <section id="work">
+      <h2>Our work</h2>
+      <p class="lead">A few recent projects.</p>
+      <!-- Replace each tile with a video or image from your portfolio -->
+      <div class="grid">
+        <div class="tile">Add a wedding clip here</div>
+        <div class="tile">Add a cafe Reel here</div>
+        <div class="tile">Add a behind-the-scenes clip here</div>
+      </div>
+    </section>
+
+    <section id="how">
+      <h2>How booking works</h2>
+      <ol>
+        <li><b>1</b><div><strong>Message us</strong><span>Tell us your date, location, and what you have in mind.</span></div></li>
+        <li><b>2</b><div><strong>Get a quote</strong><span>We reply with a clear price and confirm the date.</span></div></li>
+        <li><b>3</b><div><strong>We shoot and deliver</strong><span>You get your finished video, ready to share.</span></div></li>
+      </ol>
+    </section>
+
+    <section id="book" style="padding-top:1rem">
+      <div class="contact">
+        <h2>Ready to book your date?</h2>
+        <p>Send us a quick message on WhatsApp. We usually reply the same day.</p>
+        <a class="btn" href="https://wa.me/601164649300?text=Hi%20Karya%20Muktaf%2C%20I%27d%20like%20to%20book%20a%20video." target="_blank" rel="noopener">Chat on WhatsApp</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© Karya Muktaf. Videography in Malaysia. WhatsApp +60 11-6464 9300</footer>
+</div>
+</body>
+</html>
