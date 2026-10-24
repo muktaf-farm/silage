@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Juncao Grass Silage from Muktaf Farm – Order and collect in Kelantan</title>
+<meta name="description" content="Affordable juncao grass silage for livestock farms. See where to collect, then place your order.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{
+  --field:#1f4d2b; --blade:#6fa63a; --straw:#e2b13c; --ink:#16251a;
+  --mist:#eef3e6; --paper:#fbfcf8; --line:#cfdcbf;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:18px/1.55 "Source Sans 3",system-ui,sans-serif;color:var(--ink);background:var(--paper)}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.1;margin:0}
+a{color:var(--field)}
+:focus-visible{outline:3px solid var(--straw);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{background:var(--field);color:#fff}
+header .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:14px;padding-bottom:14px;gap:12px;flex-wrap:wrap}
+.brand{font:800 1.25rem/1.2 "Bricolage Grotesque",sans-serif}
+.brand small{display:block;margin-top:2px;font:400 .85rem "Source Sans 3",sans-serif;color:#cfe0c2}
+nav a{color:#fff;margin-left:20px;text-decoration:none;font-weight:600}
+nav a:hover{text-decoration:underline}
+.hero{background:var(--field);color:#fff;padding:36px 0 56px}
+.hero .wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:36px;align-items:end}
+.hero h1{font-size:clamp(2rem,5vw,3.4rem);font-weight:800}
+.hero p{max-width:34em;color:#dbe9cf}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.btn{display:inline-block;border:0;border-radius:8px;padding:12px 20px;font:600 1rem "Source Sans 3",sans-serif;cursor:pointer;text-decoration:none}
+.btn.main{background:var(--straw);color:var(--ink)}
+.btn.alt{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px #8fb87a}
+.facts{background:var(--mist);color:var(--ink);border-radius:10px;padding:20px 22px;margin:0}
+.facts div{display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px solid var(--line)}
+.facts div:last-child{border:0}
+.facts dt{color:#4b5f4f}.facts dd{margin:0;font-weight:600}
+section{padding:52px 0}
+section h2{font-size:clamp(1.6rem,3.5vw,2.2rem);margin-bottom:8px}
+.lead{margin:0 0 24px;color:#3f5344;max-width:38em}
+.mapgrid{display:grid;grid-template-columns:340px minmax(0,1fr);gap:20px}
+#leaflet{height:460px;border-radius:10px;border:1px solid var(--line);z-index:0}
+.points{display:flex;flex-direction:column;gap:10px;max-height:460px;overflow:auto}
+.point{text-align:left;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px;font:inherit;color:inherit;cursor:pointer}
+.point:hover,.point[aria-pressed="true"]{border-color:var(--blade);background:var(--mist)}
+.point strong{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:1.05rem}
+.point span{display:block;font-size:.92rem;color:#4b5f4f}
+.leaflet-popup-content a.navbtn{display:inline-block;margin:8px 6px 0 0;background:var(--straw);color:var(--ink);border-radius:6px;padding:7px 12px;text-decoration:none;font:600 .9rem "Source Sans 3",sans-serif}
+.leaflet-popup-content button{margin-top:8px;background:var(--field);color:#fff;border:0;border-radius:6px;padding:7px 12px;cursor:pointer;font:600 .9rem "Source Sans 3",sans-serif}
+.orderbox{background:var(--mist);border-radius:12px;padding:28px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:.95rem}
+label.full,.full{grid-column:1/-1}
+input,select,textarea{font:inherit;padding:10px 12px;border:1px solid #aebf9b;border-radius:8px;background:#fff;color:var(--ink)}
+[hidden]{display:none!important}
+fieldset{grid-column:1/-1;border:1px solid #aebf9b;border-radius:8px;padding:10px 14px;margin:0;background:#fff}
+legend{font-weight:600;font-size:.95rem;padding:0 6px}
+fieldset label{flex-direction:row;align-items:center;gap:10px;font-weight:400;padding:6px 0;font-size:1rem}
+fieldset input{margin:0;padding:0;border:0;width:1.1rem;height:1.1rem;accent-color:var(--field)}
+.pay{background:#fff;border:2px solid var(--blade);border-radius:10px;padding:16px 18px}
+.total{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.total output{font:800 1.8rem "Bricolage Grotesque",sans-serif;color:var(--field)}
+.note{font-size:.92rem;color:#4b5f4f;margin:0}
+.soon{border-left:5px solid var(--straw);padding:4px 0 4px 18px;max-width:46em}
+footer{background:var(--field);color:#cfe0c2;padding:24px 0;font-size:.92rem}
+@media(max-width:800px){
+  .hero .wrap,.mapgrid,form{grid-template-columns:1fr}
+  nav a{margin:0 16px 0 0}
+  .points{max-height:none}
+  #leaflet{height:340px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">Juncao Silage<small>From Muktaf Farm</small></div>
+    <nav><a href="#map">Where to collect</a><a href="#order">Order</a><a href="#delivery">Delivery</a></nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Good silage for your livestock, at a farm-friendly price.</h1>
+      <p>Juncao grass silage in ready-to-collect bags. See where to collect first, then place your order in a minute.</p>
+      <div class="btns">
+        <a class="btn main" href="#map">See pickup points</a>
+        <a class="btn alt" href="#order">Place an order</a>
+      </div>
+    </div>
+    <dl class="facts">
+      <div><dt>Price per bag</dt><dd id="f-price"></dd></div>
+      <div><dt>Bag size</dt><dd id="f-kg"></dd></div>
+      <div><dt>Pickup points</dt><dd id="f-count"></dd></div>
+    </dl>
+  </div>
+</div>
+
+<section id="map">
+  <div class="wrap">
+    <h2>Where to collect</h2>
+    <p class="lead">Pick a point from the list or tap a marker on the map, then choose Navigate with Google Maps to get directions. You can check the location before you order.</p>
+    <div class="mapgrid">
+      <div class="points" id="points"></div>
+      <div id="leaflet"></div>
+    </div>
+  </div>
+</section>
+
+<section id="order" style="background:#fff">
+  <div class="wrap">
+    <div class="orderbox">
+      <h2>Place your order</h2>
+      <p class="lead">Fill in the form and your order opens in WhatsApp, ready to send to us. We confirm stock and your collection time there.</p>
+      <form id="form" novalidate>
+        <label>Your name<input name="name" required autocomplete="name"></label>
+        <label>Phone number<input name="phone" type="tel" required autocomplete="tel" placeholder="e.g. 012-345 6789"></label>
+        <label>Collect from<select name="pickup" id="pickup" required></select></label>
+        <label>Collection date<input name="date" id="date" type="date" required></label>
+        <label>Number of bags<input name="bags" id="bags" type="number" min="1" value="10" required></label>
+        <label>Notes (optional)<input name="notes" placeholder="Type of livestock, questions"></label>
+        <fieldset>
+          <legend>How would you like to pay?</legend>
+          <label><input type="radio" name="payment" value="collect" checked> Pay when I collect</label>
+          <label><input type="radio" name="payment" value="online"> Pay online (FPX or card)</label>
+        </fieldset>
+        <div class="total full">
+          <div><span class="note">Estimated total</span><br><output id="total"></output></div>
+          <button class="btn main" type="submit">Send order on WhatsApp</button>
+        </div>
+        <p class="note full" id="status" role="status"></p>
+        <div class="pay full" id="payarea" hidden>
+          <strong>Pay online</strong>
+          <p class="note" id="paytext" style="margin:6px 0 12px"></p>
+          <a class="btn main" id="paylink" target="_blank" rel="noopener" hidden>Pay now</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="delivery">
+  <div class="wrap">
+    <div class="soon">
+      <h2>Delivery is coming</h2>
+      <p class="lead" style="margin:8px 0 0">We are setting up van and lorry delivery based on how many bags you order. Orders outside Kelantan will have a minimum order, and the delivery charge will depend on distance. For now, order here and collect from a pickup point.</p>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">Juncao silage from Muktaf Farm · Kelantan, Malaysia</div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+/* ===== EDIT THIS BLOCK ===== */
+const CONFIG = {
+  whatsapp: "60123456789",   // your WhatsApp number: country code, no + or spaces
+  pricePerBag: 10,           // RM per bag
+  bagKg: 25,                 // kg per bag
+  // Online payment. Leave payUrl empty at first: we send the customer a payment link on WhatsApp.
+  // Later, paste a payment link (Billplz, ToyyibPay, SenangPay or Stripe) here to show a "Pay now" button.
+  // Never put secret API keys in this file.
+  payUrl: "",
+  pickups: [                 // add more pickup points here, one line each
+    // to add a point: right-click the spot in Google Maps and copy its two numbers into lat and lng
+    {id:"rtc", name:"Pasar Teman RTC Kelantan", address:"RTC Kelantan, Bandar Baru Tunjong, Wakaf Che Yeh, Kota Bharu", hours:"Add opening hours", lat:6.0791244, lng:102.2307933}
+  ],
+  /* For later: delivery by van/lorry with a minimum order outside Kelantan
+     and a fee by distance. Not used yet. */
+  delivery: {enabled:false}
+};
+/* ===== END EDIT ===== */
+
+const $ = id => document.getElementById(id);
+const rm = n => "RM " + n.toLocaleString("en-MY");
+
+$("f-price").textContent = rm(CONFIG.pricePerBag);
+$("f-kg").textContent = CONFIG.bagKg + " kg";
+$("f-count").textContent = CONFIG.pickups.length;
+
+// Map
+const map = L.map("leaflet", {scrollWheelZoom:false});
+const streets = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom:19, attribution:"&copy; OpenStreetMap contributors"
+}).addTo(map);
+const satellite = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+  maxZoom:19, attribution:"Tiles &copy; Esri"
+});
+L.control.layers({"Streets":streets, "Satellite":satellite}, null, {position:"topright"}).addTo(map);
+
+const markers = {}, cards = {};
+CONFIG.pickups.forEach(p => {
+  const m = L.circleMarker([p.lat, p.lng], {radius:11, color:"#fff", weight:3, fillColor:"#1f4d2b", fillOpacity:1}).addTo(map);
+  const pop = document.createElement("div");
+  pop.innerHTML = `<strong>${p.name}</strong><br>${p.address}<br>${p.hours}<br>
+    <a class="navbtn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}&travelmode=driving">Navigate with Google Maps</a>`;
+  const b = document.createElement("button");
+  b.textContent = "Collect here";
+  b.onclick = () => choose(p.id);
+  pop.append(b);
+  m.bindPopup(pop);
+  m.bindTooltip(p.name, {permanent:true, direction:"top", offset:[0,-12]});
+  m.on("click", () => highlight(p.id));
+  markers[p.id] = m;
+
+  const c = document.createElement("button");
+  c.className = "point"; c.type = "button"; c.setAttribute("aria-pressed","false");
+  c.innerHTML = `<strong>${p.name}</strong><span>${p.address}</span><span>${p.hours}</span>`;
+  c.onclick = () => { highlight(p.id); map.flyTo([p.lat,p.lng], 12); markers[p.id].openPopup(); };
+  $("points").append(c);
+  cards[p.id] = c;
+
+  $("pickup").add(new Option(p.name, p.id));
+});
+if (CONFIG.pickups.length === 1) map.setView([CONFIG.pickups[0].lat, CONFIG.pickups[0].lng], 17);
+else map.fitBounds(CONFIG.pickups.map(p => [p.lat,p.lng]), {padding:[40,40], maxZoom:11});
+
+function highlight(id){
+  Object.entries(cards).forEach(([k,c]) => c.setAttribute("aria-pressed", k===id));
+}
+function choose(id){
+  $("pickup").value = id;
+  highlight(id);
+  $("order").scrollIntoView();
+  $("bags").focus();
+}
+
+// Order form
+const dateEl = $("date");
+const today = new Date(Date.now() - new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);
+dateEl.min = today; dateEl.value = today;
+
+function updateTotal(){
+  const n = Math.max(0, parseInt($("bags").value) || 0);
+  $("total").textContent = rm(n * CONFIG.pricePerBag);
+}
+$("bags").addEventListener("input", updateTotal);
+updateTotal();
+
+$("form").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = e.target;
+  if (!f.reportValidity()) return;
+  const d = Object.fromEntries(new FormData(f));
+  const p = CONFIG.pickups.find(x => x.id === d.pickup);
+  const bags = parseInt(d.bags);
+  const total = bags * CONFIG.pricePerBag;
+  const online = d.payment === "online";
+  const msg = [
+    "New silage order",
+    `Name: ${d.name}`,
+    `Phone: ${d.phone}`,
+    `Bags: ${bags} x ${CONFIG.bagKg} kg`,
+    `Collect from: ${p.name}`,
+    `Date: ${d.date}`,
+    `Estimated total: ${rm(total)}`,
+    online ? (CONFIG.payUrl ? "Payment: online, I will pay using the website link" : "Payment: online, please send me a payment link") : "Payment: on collection",
+    d.notes ? `Notes: ${d.notes}` : ""
+  ].filter(Boolean).join("\n");
+  window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+  $("payarea").hidden = !online;
+  if (online) {
+    $("paytext").textContent = CONFIG.payUrl
+      ? `Your total is ${rm(total)}. Press Pay now and enter this amount. We confirm your order on WhatsApp once payment is received.`
+      : `We will send a payment link for ${rm(total)} on WhatsApp after we confirm stock. You can pay by FPX or card.`;
+    $("paylink").hidden = !CONFIG.payUrl;
+    if (CONFIG.payUrl) $("paylink").href = CONFIG.payUrl;
+  }
+  $("status").textContent = "WhatsApp should now be open with your order. Press send there to finish. If nothing opened, check that pop-ups are allowed for this site.";
+});
+</script>
+</body>
+</html>
