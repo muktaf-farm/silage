@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Delivery outside Kelantan – Juncao Silage from Muktaf Farm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--field:#1f4d2b;--blade:#6fa63a;--straw:#e2b13c;--ink:#16251a;--mist:#eef3e6;--paper:#fbfcf8;--line:#cfdcbf}
+*{box-sizing:border-box}
+body{margin:0;font:18px/1.55 "Source Sans 3",system-ui,sans-serif;color:var(--ink);background:var(--paper)}
+h1,h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.1;margin:0}
+a{color:var(--field)}
+:focus-visible{outline:3px solid var(--straw);outline-offset:2px}
+[hidden]{display:none!important}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+header{background:var(--field);color:#fff}
+header .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:14px;padding-bottom:14px;gap:12px;flex-wrap:wrap}
+.brand{font:800 1.25rem/1.2 "Bricolage Grotesque",sans-serif;color:#fff;text-decoration:none}
+.brand small{display:block;margin-top:2px;font:400 .85rem "Source Sans 3",sans-serif;color:#cfe0c2}
+header a.back{color:#fff;font-weight:600}
+main{padding:36px 0 56px}
+h1{font-size:clamp(1.8rem,4.5vw,2.6rem);font-weight:800;margin-bottom:10px}
+.lead{margin:0 0 24px;color:#3f5344}
+.box{background:var(--mist);border-radius:12px;padding:26px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:.95rem}
+.full{grid-column:1/-1}
+input,select,textarea{font:inherit;padding:10px 12px;border:1px solid #aebf9b;border-radius:8px;background:#fff;color:var(--ink)}
+.hint{font-weight:400;font-size:.88rem;color:#4b5f4f}
+.sum{background:#fff;border:2px solid var(--blade);border-radius:10px;padding:16px 18px}
+.sum div{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border-bottom:1px solid var(--line)}
+.sum div:last-child{border:0;font-weight:600}
+.sum span:last-child{text-align:right}
+.warn{color:#8a2d12;font-weight:600;margin:0}
+.btn{border:0;border-radius:8px;padding:12px 20px;font:600 1rem "Source Sans 3",sans-serif;cursor:pointer;background:var(--straw);color:var(--ink)}
+.note{font-size:.92rem;color:#4b5f4f;margin:0}
+footer{background:var(--field);color:#cfe0c2;padding:24px 0;font-size:.92rem}
+@media(max-width:700px){form{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html">Juncao Silage<small>From Muktaf Farm</small></a>
+    <a class="back" href="index.html#order">Order for Kelantan pickup</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1>Delivery outside Kelantan</h1>
+    <p class="lead" id="lead"></p>
+    <div class="box">
+      <form id="form" novalidate>
+        <label>Your name<input name="name" required autocomplete="name"></label>
+        <label>Phone number<input name="phone" type="tel" required autocomplete="tel" placeholder="e.g. 012-345 6789"></label>
+        <label class="full">Delivery address<textarea name="address" rows="2" required placeholder="Farm name, lot number, road"></textarea></label>
+        <label>Town or area<input name="town" required></label>
+        <label>Postcode<input name="postcode" inputmode="numeric" pattern="[0-9]{5}" required placeholder="5 digits"></label>
+        <label>State<select name="state" id="state" required></select></label>
+        <label>Preferred delivery date<input name="date" id="date" type="date" required></label>
+        <label class="full">Google Maps link of the farm (optional)<input name="maps" type="url" placeholder="Paste a link so the driver finds you easily"></label>
+        <label>Number of 25 kg bags<input name="bags" id="bags" type="number" min="1" value="1" required><span class="hint" id="bagsHint"></span></label>
+        <label>Notes (optional)<input name="notes" placeholder="Gate times, unloading help"></label>
+
+        <div class="sum full" id="sum" aria-live="polite"></div>
+        <p class="warn full" id="warn" hidden></p>
+
+        <div class="full">
+          <button class="btn" type="submit">Send delivery order on WhatsApp</button>
+          <p class="note" id="status" role="status" style="margin-top:10px"></p>
+        </div>
+      </form>
+    </div>
+    <p class="note" style="margin-top:16px">Delivery costs are estimates. We confirm the final fee on WhatsApp and send a payment link before the lorry leaves. We do not deliver to Sabah and Sarawak yet.</p>
+  </div>
+</main>
+<footer><div class="wrap">Juncao silage from Muktaf Farm · Kelantan, Malaysia</div></footer>
+
+<script>
+/* ===== EDIT THIS BLOCK (keep price, bag size and WhatsApp the same as index.html) ===== */
+const C = {whatsapp:"60123456789", pricePerBag:10, bagKg:25};
+// Lorry: tonnes, name, Klang Valley fee range per trip [min, max] in RM
+const LORRIES = [
+  {t:1,  name:"1-tonne lorry",          kl:[600,800]},
+  {t:3,  name:"3-tonne lorry",          kl:[1100,1400]},
+  {t:5,  name:"5-tonne lorry",          kl:[1500,1900]},
+  {t:10, name:"10-tonne lorry",         kl:[2200,2800]},
+  {t:20, name:"40ft trailer (20 tonne)", kl:[3500,4500]}
+];
+// zone for each state. null = we quote the delivery fee on WhatsApp
+const STATES = {"Selangor":"kl","Kuala Lumpur":"kl","Putrajaya":"kl","Terengganu":"east","Pahang":"east",
+  "Melaka":"south","Johor":"south","Perak":"north","Pulau Pinang":"north","Kedah":"north","Perlis":"north","Negeri Sembilan":null};
+/* ===== END EDIT ===== */
+
+const $ = id => document.getElementById(id);
+const rm = n => "RM " + n.toLocaleString("en-MY");
+const cap = l => Math.floor(l.t * 1000 / C.bagKg);        // bags per lorry
+const MIN_BAGS = cap(LORRIES[0]);                          // minimum order = a full smallest lorry
+
+function fee(zone, l){
+  if (zone === "kl") return l.kl;
+  if (zone === "south") return [l.kl[0]+300, l.kl[1]+600];
+  if (zone === "north") return [l.kl[0]+200, l.kl[1]+500];
+  if (zone === "east") return l.t <= 3 ? [350,800] : l.t <= 10 ? [900,1600] : null;
+  return null;
+}
+
+$("lead").textContent = `We deliver by lorry. Orders outside Kelantan have a minimum of ${MIN_BAGS} bags (${LORRIES[0].t} tonne, one full lorry). We choose the smallest lorry that fits your order.`;
+$("bags").min = MIN_BAGS; $("bags").value = MIN_BAGS;
+$("bagsHint").textContent = `Minimum ${MIN_BAGS} bags`;
+$("state").innerHTML = '<option value="">Choose state</option>' + Object.keys(STATES).map(s => `<option>${s}</option>`).join("");
+const today = new Date(Date.now() - new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);
+$("date").min = today;
+
+function calc(){
+  const bags = parseInt($("bags").value) || 0;
+  const state = $("state").value;
+  const lorry = LORRIES.find(l => cap(l) >= bags);
+  const zone = STATES[state];
+  const f = lorry && state ? fee(zone, lorry) : null;
+  const product = bags * C.pricePerBag;
+  const warn = bags < MIN_BAGS ? `The minimum order outside Kelantan is ${MIN_BAGS} bags.` : "";
+  const rows = [["Silage", `${bags} bags × ${rm(C.pricePerBag)} = ${rm(product)}`]];
+  let feeText = "Choose your state to see the estimate";
+  if (state && !lorry) feeText = "Very large order: we quote on WhatsApp";
+  else if (state && lorry && !f) feeText = "We quote this on WhatsApp";
+  else if (f) feeText = `${rm(f[0])} to ${rm(f[1])}`;
+  if (lorry) rows.push(["Lorry", `${lorry.name} (up to ${cap(lorry)} bags)`]);
+  rows.push(["Delivery estimate", feeText]);
+  rows.push(["Estimated total", f ? `${rm(product+f[0])} to ${rm(product+f[1])}` : rm(product) + " + delivery"]);
+  $("sum").innerHTML = rows.map(r => `<div><span>${r[0]}</span><span>${r[1]}</span></div>`).join("");
+  $("warn").hidden = !warn; $("warn").textContent = warn;
+  return {bags, state, lorry, f, product, feeText};
+}
+["bags","state"].forEach(id => $(id).addEventListener("input", calc));
+calc();
+
+$("form").addEventListener("submit", e => {
+  e.preventDefault();
+  const form = e.target;
+  const r = calc();
+  if (r.bags < MIN_BAGS) { $("bags").focus(); return; }
+  if (!form.reportValidity()) return;
+  const d = Object.fromEntries(new FormData(form));
+  const msg = [
+    "New delivery order (outside Kelantan)",
+    `Name: ${d.name}`,
+    `Phone: ${d.phone}`,
+    `Deliver to: ${d.address}, ${d.town}, ${d.postcode} ${d.state}`,
+    d.maps ? `Map link: ${d.maps}` : "",
+    `Delivery date: ${d.date}`,
+    `Bags: ${r.bags} x ${C.bagKg} kg`,
+    `Lorry: ${r.lorry ? r.lorry.name : "to be quoted"}`,
+    `Silage: ${rm(r.product)}`,
+    `Delivery estimate: ${r.feeText}`,
+    d.notes ? `Notes: ${d.notes}` : ""
+  ].filter(Boolean).join("\n");
+  window.open(`https://wa.me/${C.whatsapp}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+  $("status").textContent = "WhatsApp should now be open with your order. Press send there to finish. We will confirm the final delivery fee and send a payment link.";
+});
+</script>
+</body>
+</html>
