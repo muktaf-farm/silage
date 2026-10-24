@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1f4d2b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Muktaf Silage">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
 <title>Juncao Grass Silage from Muktaf Farm – Order and collect in Kelantan</title>
 <meta name="description" content="Affordable juncao grass silage for livestock farms. See where to collect, then place your order.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -276,5 +282,6 @@ $("form").addEventListener("submit", e => {
   $("status").textContent = "WhatsApp should now be open with your order. Press send there to finish. If nothing opened, check that pop-ups are allowed for this site.";
 });
 </script>
+<script>if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js");</script>
 </body>
 </html>
